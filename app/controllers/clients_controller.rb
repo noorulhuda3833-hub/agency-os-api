@@ -1,18 +1,16 @@
 class ClientsController < ApplicationController
+  before_action :set_workspace
+  before_action :set_client, only: [:show, :update, :destroy]
+
   def index
-    workspace = Workspace.find(params[:workspace_id])
-    @clients = workspace.clients
+    @clients = @workspace.clients
   end
 
   def show
-    workspace = Workspace.find(params[:workspace_id])
-    @client = workspace.clients.find(params[:id])
   end
 
   def create
-    workspace = Workspace.find(params[:workspace_id])
-
-    @client = workspace.clients.new(client_params)
+    @client = @workspace.clients.new(client_params)
 
     if @client.save
       render :show, status: :created
@@ -21,7 +19,28 @@ class ClientsController < ApplicationController
     end
   end
 
+  def update
+    if @client.update(client_params)
+      render :show
+    else
+      render json: { errors: @client.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @client.destroy
+    head :no_content
+  end
+
   private
+
+  def set_workspace
+    @workspace = Workspace.find(params[:workspace_id])
+  end
+
+  def set_client
+    @client = @workspace.clients.find(params[:id])
+  end
 
   def client_params
     params.permit(:name, :email, :phone, :company)

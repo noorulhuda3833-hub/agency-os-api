@@ -5,6 +5,6 @@ Rails.application.routes.draw do
   get "/dashboard", to: "dashboard#index"
 
   resources :workspaces do
-    resources :clients, only: [:index, :show, :create]
-  end
+  resources :clients, only: [:index, :show, :create, :update, :destroy]
+end
 end
