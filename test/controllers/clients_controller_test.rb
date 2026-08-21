@@ -16,7 +16,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
     @client = Client.create!(
       name: "Nike",
       email: "nike@gmail.com",
-      phone: "123456789",
+      phone: "03001234567",
       company: "Nike Inc.",
       workspace: @workspace
     )
@@ -38,7 +38,7 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
            params: {
              name: "Apple",
              email: "apple@gmail.com",
-             phone: "987654321",
+             phone: "03123456789",
              company: "Apple Inc."
            },
            as: :json
