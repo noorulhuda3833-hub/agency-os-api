@@ -1,6 +1,6 @@
 class ClientsController < ApplicationController
   before_action :set_workspace
-  before_action :set_client, only: [:show, :update, :destroy]
+  before_action :set_client, only: [ :show, :update, :destroy ]
 
   def index
     @clients = @workspace.clients
