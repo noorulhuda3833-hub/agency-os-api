@@ -1,5 +1,6 @@
 class Client < ApplicationRecord
   belongs_to :workspace
+  has_many :notes, dependent: :destroy
 
   validates :name, presence: true
 
