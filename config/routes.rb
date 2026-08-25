@@ -7,7 +7,8 @@ Rails.application.routes.draw do
 
   resources :workspaces, only: [ :index, :show, :create, :update, :destroy ] do
     resources :clients, only: [ :index, :show, :create, :update, :destroy ] do
-      resources :notes, only: [ :index, :create ]
+      resources :notes, only: [:index, :create, :show, :update, :destroy]   
+    
     end
   end
 end

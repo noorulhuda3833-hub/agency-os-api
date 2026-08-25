@@ -36,6 +36,78 @@ def note_params
   params.require(:note).permit(:title, :content, :note_type)
 end
 
+def show
+  note = @client.notes.find_by(id: params[:id])
+
+  unless note
+    return render json: { error: "Note not found" }, status: :not_found
+  end
+
+  render json: {
+    id: note.id,
+    client_id: note.client_id,
+    title: note.title,
+    content: note.content,
+    note_type: note.note_type,
+    files: note.files.map do |file|
+      {
+        id: file.id,
+        filename: file.filename.to_s,
+        content_type: file.content_type,
+        byte_size: file.byte_size
+      }
+    end
+  }, status: :ok
+end
+
+def update
+  note = @client.notes.find_by(id: params[:id])
+
+  unless note
+    return render json: { error: "Note not found" }, status: :not_found
+  end
+
+  if note.update(note_params)
+    render json: {
+      message: "Note updated successfully",
+      note: {
+        id: note.id,
+        client_id: note.client_id,
+        title: note.title,
+        content: note.content,
+        note_type: note.note_type,
+        files: note.files.map do |file|
+          {
+            id: file.id,
+            filename: file.filename.to_s,
+            content_type: file.content_type,
+            byte_size: file.byte_size
+          }
+        end
+      }
+    }, status: :ok
+  else
+    render json: {
+      errors: note.errors.full_messages
+    }, status: :unprocessable_entity
+  end
+end
+
+def destroy
+  note = @client.notes.find_by(id: params[:id])
+
+  unless note
+    return render json: { error: "Note not found" }, status: :not_found
+  end
+
+  note.destroy
+
+  render json: {
+    message: "Note deleted successfully"
+  }, status: :ok
+end
+
+
   private
 
   def set_workspace
