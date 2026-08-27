@@ -2,15 +2,12 @@ class WorkspacesController < ApplicationController
   before_action :authenticate_request
 
   def index
-    workspaces = @current_user.workspaces
-    render json: workspaces
-  end
-
-  def show
-    workspace = @current_user.workspaces.find(params[:id])
-    render json: workspace
-  end
-
+  @workspaces = @current_user.workspaces
+end
+# rescue_from ActiveRecord::RecordNotFound, with: :not_found  will add in concerns
+ def show
+  @workspace = @current_user.workspaces.find(params[:id])
+end
   def create
     workspace = @current_user.workspaces.new(workspace_params)
 
@@ -30,7 +27,8 @@ class WorkspacesController < ApplicationController
       render json: { errors: workspace.errors.full_messages }, status: :unprocessable_entity
     end
   end
-
+# before action and set workpace
+#worspace jbuilder
   def destroy
     workspace = @current_user.workspaces.find(params[:id])
     workspace.destroy

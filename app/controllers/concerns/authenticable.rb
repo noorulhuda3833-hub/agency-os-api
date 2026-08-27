@@ -8,8 +8,8 @@ module Authenticable
 
     if decoded
       @current_user = User.find_by(id: decoded[:user_id])
-    else
-      render json: { error: "Unauthorized" }, status: :unauthorized
     end
+
+    render json: { error: "Unauthorized" }, status: :unauthorized unless @current_user
   end
 end
