@@ -3,11 +3,11 @@
 one:
   title: MyString
   content: MyText
-  note_type: MyString
+  note_type: meeting
   client: one
 
 two:
   title: MyString
   content: MyText
-  note_type: MyString
+  note_type: call
   client: two

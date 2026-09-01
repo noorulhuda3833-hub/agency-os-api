@@ -4,12 +4,12 @@ one:
   name: MyString
   email: MyString
   phone: MyString
-  company: MyString
+  company: one
   workspace: one
 
 two:
   name: MyString
   email: MyString
   phone: MyString
-  company: MyString
+  company: two
   workspace: two
