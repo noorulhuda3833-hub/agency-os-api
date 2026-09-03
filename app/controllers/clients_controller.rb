@@ -1,12 +1,18 @@
 class ClientsController < ApplicationController
   before_action :set_workspace
-  before_action :set_client, only: [ :show, :update, :destroy ]
+  before_action :set_client, only: [:show, :update, :destroy]
 
   def index
-    @clients = @workspace.clients
+    @clients = @workspace.clients.includes(:company)
   end
 
   def show
+  end
+
+  def companies
+    @companies = Company.all.order(:name)
+
+    render json: @companies
   end
 
   def create
@@ -15,7 +21,9 @@ class ClientsController < ApplicationController
     if @client.save
       render :show, status: :created
     else
-      render json: { errors: @client.errors.full_messages }, status: :unprocessable_entity
+      render json: {
+        errors: @client.errors.full_messages
+      }, status: :unprocessable_entity
     end
   end
 
@@ -23,7 +31,9 @@ class ClientsController < ApplicationController
     if @client.update(client_params)
       render :show
     else
-      render json: { errors: @client.errors.full_messages }, status: :unprocessable_entity
+      render json: {
+        errors: @client.errors.full_messages
+      }, status: :unprocessable_entity
     end
   end
 
@@ -43,6 +53,11 @@ class ClientsController < ApplicationController
   end
 
   def client_params
-  params.permit(:name, :email, :phone, :company_id)
-end
+    params.permit(
+      :name,
+      :email,
+      :phone,
+      :company_id
+    )
+  end
 end

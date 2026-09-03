@@ -1,7 +1,8 @@
 class Client < ApplicationRecord
   belongs_to :workspace
+  belongs_to :company
+
   has_many :notes, dependent: :destroy
-    belongs_to :company, optional: true
 
   validates :name, presence: true
 
