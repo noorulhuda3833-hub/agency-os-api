@@ -1,7 +1,7 @@
 class Note < ApplicationRecord
   belongs_to :client
   has_many_attached :files
-
+  
   validates :title, presence: true
   validates :content, presence: true
 
