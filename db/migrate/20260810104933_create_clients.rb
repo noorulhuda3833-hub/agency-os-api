@@ -13,5 +13,5 @@ class CreateClients < ActiveRecord::Migration[8.1]
 end
 
 
-#add db validations
+# add db validations
 # add company table
