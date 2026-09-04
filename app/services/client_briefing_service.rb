@@ -25,6 +25,8 @@ class ClientBriefingService
       }
     )
 
-    response
+    content = response.dig("choices", 0, "message", "content")
+
+    JSON.parse(content)
   end
 end
