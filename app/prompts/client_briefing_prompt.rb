@@ -49,6 +49,10 @@ class ClientBriefingPrompt
   agency team member to understand.
 
   Do not include information outside of the provided client notes.
+  Return ONLY a valid JSON object.
+  Do not use Markdown.
+  Do not wrap the JSON in code fences.
+  Do not include any text before or after the JSON.
 PROMPT
 
   def self.user_prompt(notes)
