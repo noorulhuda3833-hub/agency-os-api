@@ -4,7 +4,7 @@ class WorkspacesController < ApplicationController
   def index
   @workspaces = @current_user.workspaces
 end
-# rescue_from ActiveRecord::RecordNotFound, with: :not_found  will add in concerns
+ # rescue_from ActiveRecord::RecordNotFound, with: :not_found  will add in concerns
  def show
   @workspace = @current_user.workspaces.find(params[:id])
 end
@@ -27,8 +27,8 @@ end
       render json: { errors: workspace.errors.full_messages }, status: :unprocessable_entity
     end
   end
-# before action and set workpace
-#worspace jbuilder
+  # before action and set workpace
+  # worspace jbuilder
   def destroy
     workspace = @current_user.workspaces.find(params[:id])
     workspace.destroy
