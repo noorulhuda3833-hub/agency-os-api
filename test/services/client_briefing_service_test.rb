@@ -36,7 +36,7 @@ class ClientBriefingServiceTest < ActiveSupport::TestCase
     result = service.call
 
     assert_equal "Modern coffee brand website", result["summary"]
-    assert_equal ["branding", "modern design"], result["priorities"]
+    assert_equal [ "branding", "modern design" ], result["priorities"]
   end
 
   test "raises JSON parser error when API returns invalid JSON" do
