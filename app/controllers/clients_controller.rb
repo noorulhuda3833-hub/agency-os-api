@@ -14,12 +14,17 @@ def briefing
 
   result = ClientBriefingService.new(notes).call
 
-  render json: result, status: :ok
+  briefing_document = @client.briefing_documents.create!(
+    content: result
+  )
+
+  render json: briefing_document, status: :created
 rescue ClientBriefingService::InvalidResponseError => e
   render json: { error: e.message }, status: :unprocessable_entity
 rescue ClientBriefingService::ApiError => e
   render json: { error: e.message }, status: :bad_gateway
 end
+
 
 
 
