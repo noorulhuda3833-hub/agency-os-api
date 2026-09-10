@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :workspaces, only: [ :index, :show, :create, :update, :destroy ] do
     resources :clients, only: [ :index, :show, :create, :update, :destroy ] do
       resources :notes, only: [ :index, :create, :show, :update, :destroy ]
-      resources :briefing_documents, only: [ :create ]
+      resources :briefing_documents, only: [ :index, :create ]
         post :briefing, on: :member
     end
   end
