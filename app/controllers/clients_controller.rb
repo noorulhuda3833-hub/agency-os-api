@@ -1,6 +1,6 @@
 class ClientsController < ApplicationController
   before_action :set_workspace
-  before_action :set_client, only: [ :show, :update, :destroy ]
+before_action :set_client, only: [ :show, :update, :destroy, :briefing ]
 
   def index
     @clients = @workspace.clients.includes(:company)
@@ -8,6 +8,20 @@ class ClientsController < ApplicationController
 
   def show
   end
+
+def briefing
+  notes = @client.notes
+
+  result = ClientBriefingService.new(notes).call
+
+  render json: result, status: :ok
+rescue ClientBriefingService::InvalidResponseError => e
+  render json: { error: e.message }, status: :unprocessable_entity
+rescue ClientBriefingService::ApiError => e
+  render json: { error: e.message }, status: :bad_gateway
+end
+
+
 
   def companies
     @companies = Company.all.order(:name)

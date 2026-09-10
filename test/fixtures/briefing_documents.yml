@@ -1,0 +1,4 @@
+one:
+  client: one
+  content:
+    client_summary: "Test briefing"
