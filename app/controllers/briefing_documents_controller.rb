@@ -1,4 +1,13 @@
 class BriefingDocumentsController < ApplicationController
+  
+  def index
+  client = Client.find(params[:client_id])
+
+  briefing_documents = client.briefing_documents.order(created_at: :desc)
+
+  render json: briefing_documents, status: :ok
+end
+  
   def create
     client = Client.find(params[:client_id])
 
