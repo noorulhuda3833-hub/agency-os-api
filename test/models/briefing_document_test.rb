@@ -27,14 +27,13 @@ class BriefingDocumentTest < ActiveSupport::TestCase
     client: client,
     content: {
       "client_summary" => "Test briefing",
-      "key_points" => ["Website redesign"]
+      "key_points" => [ "Website redesign" ]
     }
   )
 
   saved_document = BriefingDocument.find(briefing_document.id)
 
   assert_equal "Test briefing", saved_document.content["client_summary"]
-  assert_equal ["Website redesign"], saved_document.content["key_points"]
+  assert_equal [ "Website redesign" ], saved_document.content["key_points"]
 end
-
 end
