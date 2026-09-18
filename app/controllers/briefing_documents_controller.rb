@@ -23,7 +23,7 @@ class BriefingDocumentsController < ApplicationController
     @workspace = @current_user.workspaces.find_by(id: params[:workspace_id])
 
     unless @workspace
-      return render json: { error: "Workspace not found" }, status: :not_found
+      render json: { error: "Workspace not found" }, status: :not_found
     end
   end
 
@@ -31,7 +31,7 @@ class BriefingDocumentsController < ApplicationController
     @client = @workspace.clients.find_by(id: params[:client_id])
 
     unless @client
-      return render json: { error: "Client not found" }, status: :not_found
+      render json: { error: "Client not found" }, status: :not_found
     end
   end
 

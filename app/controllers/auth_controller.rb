@@ -8,7 +8,7 @@ class AuthController < ApplicationController
       render json: {
         message: "User created successfully",
         token: token,
-        user: user.as_json(except: [:password_digest])
+        user: user.as_json(except: [ :password_digest ])
       }, status: :created
     else
       render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
@@ -24,7 +24,7 @@ class AuthController < ApplicationController
       render json: {
   message: "Login successful",
   token: token,
-  user: user.as_json(except: [:password_digest])
+  user: user.as_json(except: [ :password_digest ])
 }, status: :ok
     else
       render json: {

@@ -126,6 +126,4 @@ test "user cannot access another user's workspace clients" do
 
   assert_response :not_found
 end
-
-
 end

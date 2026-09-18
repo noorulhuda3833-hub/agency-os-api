@@ -144,7 +144,7 @@ class NotesController < ApplicationController
     @workspace = @current_user.workspaces.find_by(id: params[:workspace_id])
 
     unless @workspace
-      return render json: { error: "Workspace not found" }, status: :not_found
+      render json: { error: "Workspace not found" }, status: :not_found
     end
   end
 
