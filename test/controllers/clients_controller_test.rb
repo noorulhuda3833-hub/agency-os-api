@@ -101,4 +101,29 @@ class ClientsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :unprocessable_entity
   end
+
+test "user cannot access another user's workspace clients" do
+  other_user = User.create!(
+    name: "Other User",
+    email: "other@example.com",
+    password: "password"
+  )
+
+  other_workspace = Workspace.create!(
+    name: "Other Workspace",
+    user: other_user
+  )
+
+  other_token = JsonWebToken.encode(user_id: other_user.id)
+
+  other_headers = {
+    "Authorization" => "Bearer #{other_token}"
+  }
+
+  get workspace_clients_url(@workspace),
+      headers: other_headers,
+      as: :json
+
+  assert_response :not_found
+end
 end
