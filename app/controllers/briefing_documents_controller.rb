@@ -1,16 +1,16 @@
 class BriefingDocumentsController < ApplicationController
+  before_action :authenticate_request
+  before_action :set_workspace
+  before_action :set_client
+
   def index
-  client = Client.find(params[:client_id])
+    briefing_documents = @client.briefing_documents.order(created_at: :desc)
 
-  briefing_documents = client.briefing_documents.order(created_at: :desc)
-
-  render json: briefing_documents, status: :ok
-end
+    render json: briefing_documents, status: :ok
+  end
 
   def create
-    client = Client.find(params[:client_id])
-
-    briefing_document = client.briefing_documents.create!(
+    briefing_document = @client.briefing_documents.create!(
       content: briefing_params[:content]
     )
 
@@ -18,6 +18,22 @@ end
   end
 
   private
+
+  def set_workspace
+    @workspace = @current_user.workspaces.find_by(id: params[:workspace_id])
+
+    unless @workspace
+      return render json: { error: "Workspace not found" }, status: :not_found
+    end
+  end
+
+  def set_client
+    @client = @workspace.clients.find_by(id: params[:client_id])
+
+    unless @client
+      return render json: { error: "Client not found" }, status: :not_found
+    end
+  end
 
   def briefing_params
     params.permit(content: {})

@@ -1,6 +1,7 @@
 class ClientsController < ApplicationController
+  before_action :authenticate_request
   before_action :set_workspace
-before_action :set_client, only: [ :show, :update, :destroy, :briefing ]
+  before_action :set_client, only: [ :show, :update, :destroy, :briefing ]
 
   def index
     @clients = @workspace.clients.includes(:company)
@@ -64,7 +65,7 @@ end
   private
 
   def set_workspace
-    @workspace = Workspace.find(params[:workspace_id])
+    @workspace = @current_user.workspaces.find(params[:workspace_id])
   end
 
   def set_client
