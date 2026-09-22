@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   mount ActionCable.server => "/cable"
-
+  
+  get "/up", to: "health#show"
+  
   post "/signup", to: "auth#signup"
   post "/login", to: "auth#login"
   get "/dashboard", to: "dashboard#index"
