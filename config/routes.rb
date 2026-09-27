@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   post "/signup", to: "auth#signup"
   post "/login", to: "auth#login"
   get "/dashboard", to: "dashboard#index"
+  patch "/profile", to: "auth#update_profile"
+  patch "/profile/password", to: "profile#update_password"
 
   resources :companies, only: [ :index, :create ]
 

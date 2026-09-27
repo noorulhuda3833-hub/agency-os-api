@@ -12,7 +12,15 @@ class NotesController < ApplicationController
         client_id: note.client_id,
         title: note.title,
         content: note.content,
-        note_type: note.note_type
+        note_type: note.note_type,
+        files: note.files.map do |file|
+          {
+            id: file.id,
+            filename: file.filename.to_s,
+            content_type: file.content_type,
+            byte_size: file.byte_size
+          }
+        end
       }
     }, status: :ok
   end
@@ -26,7 +34,15 @@ class NotesController < ApplicationController
         client_id: note.client_id,
         title: note.title,
         content: note.content,
-        note_type: note.note_type
+        note_type: note.note_type,
+        files: note.files.map do |file|
+          {
+            id: file.id,
+            filename: file.filename.to_s,
+            content_type: file.content_type,
+            byte_size: file.byte_size
+          }
+        end
       }
 
       ActionCable.server.broadcast(
@@ -137,7 +153,12 @@ class NotesController < ApplicationController
   private
 
   def note_params
-    params.require(:note).permit(:title, :content, :note_type)
+    params.require(:note).permit(
+      :title,
+      :content,
+      :note_type,
+      files: []
+    )
   end
 
   def set_workspace
