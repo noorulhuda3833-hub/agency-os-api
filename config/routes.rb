@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
   mount ActionCable.server => "/cable"
-
+  
+  get "/up", to: "health#show"
+  
   post "/signup", to: "auth#signup"
   post "/login", to: "auth#login"
   get "/dashboard", to: "dashboard#index"
+  patch "/profile", to: "auth#update_profile"
+  patch "/profile/password", to: "profile#update_password"
 
   resources :companies, only: [ :index, :create ]
 
